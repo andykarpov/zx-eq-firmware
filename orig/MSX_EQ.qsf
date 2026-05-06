@@ -1,0 +1,172 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2009 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II
+# Version 9.1 Build 222 10/21/2009 SJ Full Version
+# Date created = 16:45:12  July 15, 2023
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		MSX_EQ_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2009 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II
+# Version 9.1 Build 222 10/21/2009 SJ Full Version
+# Date created = 13:00:53  January 10, 2022
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		MSX_EQ_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY MAX7000S
+set_global_assignment -name DEVICE "EPM7128STC100-10"
+set_global_assignment -name TOP_LEVEL_ENTITY MSX_EQ
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 9.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:00:53  JANUARY 10, 2022"
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name EDA_DESIGN_ENTRY_SYNTHESIS_TOOL "Design Compiler"
+set_global_assignment -name EDA_INPUT_VCC_NAME VDD -section_id eda_design_synthesis
+set_global_assignment -name EDA_LMF_FILE altsyn.lmf -section_id eda_design_synthesis
+set_global_assignment -name EDA_INPUT_DATA_FORMAT EDIF -section_id eda_design_synthesis
+set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
+set_global_assignment -name DEVICE_FILTER_PACKAGE TQFP
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 100
+set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/MSX_EQ.dpf"
+set_global_assignment -name AHDL_FILE MSX_EQ.tdf
+set_global_assignment -name MAX7000_OPTIMIZATION_TECHNIQUE AREA
+set_global_assignment -name ALLOW_POWER_UP_DONT_CARE OFF
+set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS OFF
+set_global_assignment -name OPTIMIZE_HOLD_TIMING OFF
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name VECTOR_WAVEFORM_FILE MSX_EQ.vwf
+set_global_assignment -name END_TIME "10000 us"
+set_global_assignment -name ADD_DEFAULT_PINS_TO_SIMULATION_OUTPUT_WAVEFORMS ON
+set_global_assignment -name GLITCH_DETECTION OFF
+set_location_assignment PIN_87 -to gclk
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to gclk
+set_global_assignment -name MAX7000_DEVICE_IO_STANDARD TTL
+set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_EQ_Simple/MSX_EQ.dpf"
+set_location_assignment PIN_98 -to data[0]
+set_location_assignment PIN_99 -to data[1]
+set_location_assignment PIN_97 -to data[2]
+set_location_assignment PIN_1 -to data[3]
+set_location_assignment PIN_88 -to data[4]
+set_location_assignment PIN_92 -to data[5]
+set_location_assignment PIN_94 -to data[6]
+set_location_assignment PIN_100 -to data[7]
+set_location_assignment PIN_9 -to led_plus[0]
+set_location_assignment PIN_20 -to led_plus[1]
+set_location_assignment PIN_25 -to led_plus[2]
+set_location_assignment PIN_27 -to led_plus[3]
+set_location_assignment PIN_41 -to led_plus[4]
+set_location_assignment PIN_45 -to led_plus[5]
+set_location_assignment PIN_50 -to led_plus[6]
+set_location_assignment PIN_60 -to led_plus[7]
+set_location_assignment PIN_61 -to led_plus[8]
+set_location_assignment PIN_16 -to led_minus[0][0]
+set_location_assignment PIN_14 -to led_minus[0][1]
+set_location_assignment PIN_13 -to led_minus[0][2]
+set_location_assignment PIN_12 -to led_minus[0][3]
+set_location_assignment PIN_10 -to led_minus[0][4]
+set_location_assignment PIN_22 -to led_minus[0][5]
+set_location_assignment PIN_23 -to led_minus[0][6]
+set_location_assignment PIN_24 -to led_minus[0][7]
+set_location_assignment PIN_36 -to led_minus[1][0]
+set_location_assignment PIN_35 -to led_minus[1][1]
+set_location_assignment PIN_33 -to led_minus[1][2]
+set_location_assignment PIN_32 -to led_minus[1][3]
+set_location_assignment PIN_31 -to led_minus[1][4]
+set_location_assignment PIN_30 -to led_minus[1][5]
+set_location_assignment PIN_42 -to led_minus[1][6]
+set_location_assignment PIN_44 -to led_minus[1][7]
+set_location_assignment PIN_56 -to led_minus[2][0]
+set_location_assignment PIN_55 -to led_minus[2][1]
+set_location_assignment PIN_53 -to led_minus[2][3]
+set_location_assignment PIN_52 -to led_minus[2][4]
+set_location_assignment PIN_48 -to led_minus[2][5]
+set_location_assignment PIN_47 -to led_minus[2][6]
+set_location_assignment PIN_46 -to led_minus[2][7]
+set_location_assignment PIN_54 -to led_minus[2][2]
+set_global_assignment -name PARALLEL_SYNTHESIS OFF
+set_global_assignment -name IGNORE_CARRY_BUFFERS ON
+set_global_assignment -name IGNORE_CASCADE_BUFFERS ON
+set_global_assignment -name IGNORE_GLOBAL_BUFFERS ON
+set_global_assignment -name IGNORE_ROW_GLOBAL_BUFFERS ON
+set_global_assignment -name MAX7000_IGNORE_SOFT_BUFFERS ON
+set_global_assignment -name MAX7000_PARALLEL_EXPANDER_CHAIN_LENGTH 8
+set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_EQ_220316/MSX_EQ.dpf"
+set_location_assignment PIN_76 -to ioreq
+set_location_assignment PIN_2 -to test_low
+set_location_assignment PIN_70 -to wr
+set_global_assignment -name FIT_ONLY_ONE_ATTEMPT ON
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
+set_global_assignment -name OPTIMIZE_IOC_REGISTER_PLACEMENT_FOR_TIMING OFF
+set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_ZX_221226/MSX_EQ.dpf"
+set_location_assignment PIN_93 -to a15
+set_location_assignment PIN_90 -to a14
+set_location_assignment PIN_96 -to a1
+set_location_assignment PIN_65 -to m1
+set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_ZX_230111/MSX_EQ.dpf"
+set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_ZX_230225/MSX_EQ.dpf"
+set_location_assignment PIN_17 -to led_minus[0][9]
+set_location_assignment PIN_40 -to led_minus[1][8]
+set_location_assignment PIN_37 -to led_minus[1][9]
+set_location_assignment PIN_58 -to led_minus[2][8]
+set_location_assignment PIN_57 -to led_minus[2][9]
+set_location_assignment PIN_19 -to led_minus[0][8]
