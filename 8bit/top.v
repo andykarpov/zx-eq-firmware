@@ -17,19 +17,20 @@ module top(
 	input wire m1_n,
 
 	output wire [2:0] led_p0,
-	output wire [9:2] led_c0,
+	output wire [9:10-WIDTH] led_c0,
 	
 	output wire [2:0] led_p1,
-	output wire [9:2] led_c1, 
+	output wire [9:10-WIDTH] led_c1, 
 
 	output wire [2:0] led_p2,
-	output wire [9:2] led_c2
+	output wire [9:10-WIDTH] led_c2
 );
 
 localparam COMM_ANODE = 1;
 localparam COMM_CATHODE = 2;
-
-parameter COMM = COMM_CATHODE;
+parameter COMM = COMM_CATHODE; // led bar type
+parameter WIDTH = 8; // used leds count (upper). valid: 10,9,8
+`define USE_SMOOTH // use smooth peak reducing logic
 
 // decode AY ports
 wire ssg = ~(a15 && ~(a1 || iorq_n));
@@ -41,7 +42,7 @@ wire wr_data = bdir && ~bc1;
 // mux counter
 reg [16:0] scan_cnt; 
 always @(posedge clk) begin
-	scan_cnt <= scan_cnt + 1;
+	scan_cnt <= scan_cnt + 17'd1;
 end
 wire [1:0] current_col = scan_cnt[16:15]; 
 wire scan_clk = scan_cnt == 17'b11111111111111111;
@@ -79,19 +80,19 @@ always @(posedge clk) begin
 end
 
 // spread freq / vol to bars
-wire [7:0] data_a1, data_a2, data_a3, data_b1, data_b2, data_b3, data_c1, data_c2, data_c3;
-psg_data_mapper mapper_a(.clk(clk), .sclk(scan_clk), .f(freq_a), .v(vol_a), .wr(wr_stb), .data1(data_a1), .data2(data_a2), .data3(data_a3));
-psg_data_mapper mapper_b(.clk(clk), .sclk(scan_clk), .f(freq_b), .v(vol_b), .wr(wr_stb), .data1(data_b1), .data2(data_b2), .data3(data_b3));
-psg_data_mapper mapper_c(.clk(clk), .sclk(scan_clk), .f(freq_c), .v(vol_c), .wr(wr_stb), .data1(data_c1), .data2(data_c2), .data3(data_c3));
+wire [WIDTH-1:0] data_a1, data_a2, data_a3, data_b1, data_b2, data_b3, data_c1, data_c2, data_c3;
+psg_data_mapper #(.WIDTH(WIDTH)) mapper_a(.clk(clk), .sclk(scan_clk), .f(freq_a), .v(vol_a), .wr(wr_stb), .data1(data_a1), .data2(data_a2), .data3(data_a3));
+psg_data_mapper #(.WIDTH(WIDTH)) mapper_b(.clk(clk), .sclk(scan_clk), .f(freq_b), .v(vol_b), .wr(wr_stb), .data1(data_b1), .data2(data_b2), .data3(data_b3));
+psg_data_mapper #(.WIDTH(WIDTH)) mapper_c(.clk(clk), .sclk(scan_clk), .f(freq_c), .v(vol_c), .wr(wr_stb), .data1(data_c1), .data2(data_c2), .data3(data_c3));
 
 // drive led bars
-led_driver3 #(.COMM(COMM)) led_driver_a(.clk(clk), .sel(current_col), .data1(data_a1), .data2(data_a2), .data3(data_a3), .led_col(led_p0), .led_row(led_c0[9:2]));
-led_driver3 #(.COMM(COMM)) led_driver_b(.clk(clk), .sel(current_col), .data1(data_b1), .data2(data_b2), .data3(data_b3), .led_col(led_p1), .led_row(led_c1[9:2]));
-led_driver3 #(.COMM(COMM)) led_driver_c(.clk(clk), .sel(current_col), .data1(data_c1), .data2(data_c2), .data3(data_c3), .led_col(led_p2), .led_row(led_c2[9:2]));
+led_driver3 #(.COMM(COMM), .WIDTH(WIDTH)) led_driver_a(.clk(clk), .sel(current_col), .data1(data_a1), .data2(data_a2), .data3(data_a3), .led_col(led_p0), .led_row(led_c0[9:10-WIDTH]));
+led_driver3 #(.COMM(COMM), .WIDTH(WIDTH)) led_driver_b(.clk(clk), .sel(current_col), .data1(data_b1), .data2(data_b2), .data3(data_b3), .led_col(led_p1), .led_row(led_c1[9:10-WIDTH]));
+led_driver3 #(.COMM(COMM), .WIDTH(WIDTH)) led_driver_c(.clk(clk), .sel(current_col), .data1(data_c1), .data2(data_c2), .data3(data_c3), .led_col(led_p2), .led_row(led_c2[9:10-WIDTH]));
  
 endmodule
 
-// map 3-bit level value to 8 bit led bar
+// map 3-bit level value to N-bit led bar
 module led_bar #(
     parameter WIDTH = 8
 )(
@@ -123,72 +124,76 @@ module fall_off (
     end
 endmodule
 
-// map incoming psg data (frequency and volume) to 3 led bars by 8 leds
+// map incoming psg data (frequency and volume) to 3 led bars by N leds
 module psg_data_mapper (
     input  wire       clk,
 	 input  wire       sclk,
     input  wire [4:0] f,
     input  wire [2:0] v,
 	 input  wire wr,
-    output wire [7:0] data1,
-    output wire [7:0] data2,
-    output wire [7:0] data3
+    output wire [WIDTH-1:0] data1,
+    output wire [WIDTH-1:0] data2,
+    output wire [WIDTH-1:0] data3
 );
-    wire [2:0] lev1 = (f < 5) ? v : 0;
-    wire [2:0] lev2 = ((f >= 5) && (f < 10)) ? v : 0;
-    wire [2:0] lev3 = (f >= 10) ? v : 0;
 
+	parameter WIDTH=8;
+
+    wire [2:0] lev1 = (f < 2) ? v : {1'b0, v[1:0]};
+    wire [2:0] lev2 = ((f >= 2) && (f < 3)) ? v : {1'b0, v[1:0]};
+    wire [2:0] lev3 = (f >= 3) ? v : {1'b0, v[1:0]};
+
+`ifdef USE_SMOOTH
     wire [2:0] smoothed_lev1, smoothed_lev2, smoothed_lev3;
-
     fall_off f1 (.clk(clk), .sclk(sclk), .wr(wr), .in_level(lev1), .out_level(smoothed_lev1));
     fall_off f2 (.clk(clk), .sclk(sclk), .wr(wr), .in_level(lev2), .out_level(smoothed_lev2));
     fall_off f3 (.clk(clk), .sclk(sclk), .wr(wr), .in_level(lev3), .out_level(smoothed_lev3));
-
-    led_bar #(.WIDTH(8)) led_bar1(.level(smoothed_lev1), .led_bar(data1));
-    led_bar #(.WIDTH(8)) led_bar2(.level(smoothed_lev2), .led_bar(data2));
-    led_bar #(.WIDTH(8)) led_bar3(.level(smoothed_lev3), .led_bar(data3));
-
-/*    led_bar #(.WIDTH(8)) led_bar1(.level(lev1), .led_bar(data1));
-    led_bar #(.WIDTH(8)) led_bar2(.level(lev2), .led_bar(data2));
-    led_bar #(.WIDTH(8)) led_bar3(.level(lev3), .led_bar(data3));
-	*/ 
+    led_bar #(.WIDTH(WIDTH)) led_bar1(.level(smoothed_lev1), .led_bar(data1));
+    led_bar #(.WIDTH(WIDTH)) led_bar2(.level(smoothed_lev2), .led_bar(data2));
+    led_bar #(.WIDTH(WIDTH)) led_bar3(.level(smoothed_lev3), .led_bar(data3));
+`else
+	 
+    led_bar #(.WIDTH(WIDTH)) led_bar1(.level(lev1), .led_bar(data1));
+    led_bar #(.WIDTH(WIDTH)) led_bar2(.level(lev2), .led_bar(data2));
+    led_bar #(.WIDTH(WIDTH)) led_bar3(.level(lev3), .led_bar(data3));
+`endif
 endmodule
 
-// dynamic indication: drive 3 led bars by 10 leds
+// dynamic indication: drive 3 led bars by N leds
 module led_driver3(
 	input wire clk,
 	input wire [1:0] sel,
-	input wire [7:0] data1,
-	input wire [7:0] data2,
-	input wire [7:0] data3,
+	input wire [WIDTH-1:0] data1,
+	input wire [WIDTH-1:0] data2,
+	input wire [WIDTH-1:0] data3,
 	output wire [2:0] led_col,
-	output wire [7:0] led_row
+	output wire [WIDTH-1:0] led_row
 );
 
 	localparam COMM_ANODE = 1;
 	localparam COMM_CATHODE = 2;
 	parameter COMM = COMM_ANODE;
+	parameter WIDTH = 8;
 
 	// dynamic indication
 	reg [2:0] col;
-	reg [7:0] row;
+	reg [WIDTH-1:0] row;
 	always @(posedge clk) begin
 		case (sel)
 			2'b00: begin
 				col <= 3'b001;
-				row <= ~data1[7:0];
+				row <= ~data1[WIDTH-1:0];
 			end
 			2'b01: begin
 				col <= 3'b010;
-				row <= ~data2[7:0];
+				row <= ~data2[WIDTH-1:0];
 			end
 			2'b10: begin
 				col <= 3'b100;
-				row <= ~data3[7:0];
+				row <= ~data3[WIDTH-1:0];
 			end
 			2'b11: begin 
 				col <= 3'b000;
-				row <= 8'b00000000;
+				row <= {WIDTH{1'b0}};
 			end
 		endcase
 	end
