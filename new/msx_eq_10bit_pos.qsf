@@ -87,21 +87,18 @@ set_global_assignment -name EDA_INPUT_DATA_FORMAT EDIF -section_id eda_design_sy
 set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
 set_global_assignment -name DEVICE_FILTER_PACKAGE TQFP
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 100
-set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/MSX_EQ.dpf"
-set_global_assignment -name AHDL_FILE MSX_EQ.tdf
+set_global_assignment -name AHDL_FILE rtl/msx_eq_pos.tdf
 set_global_assignment -name MAX7000_OPTIMIZATION_TECHNIQUE AREA
 set_global_assignment -name ALLOW_POWER_UP_DONT_CARE OFF
 set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS OFF
 set_global_assignment -name OPTIMIZE_HOLD_TIMING OFF
 set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
-set_global_assignment -name VECTOR_WAVEFORM_FILE MSX_EQ.vwf
 set_global_assignment -name END_TIME "10000 us"
 set_global_assignment -name ADD_DEFAULT_PINS_TO_SIMULATION_OUTPUT_WAVEFORMS ON
 set_global_assignment -name GLITCH_DETECTION OFF
 set_location_assignment PIN_87 -to gclk
 set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to gclk
 set_global_assignment -name MAX7000_DEVICE_IO_STANDARD TTL
-set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_EQ_Simple/MSX_EQ.dpf"
 set_location_assignment PIN_98 -to data[0]
 set_location_assignment PIN_99 -to data[1]
 set_location_assignment PIN_97 -to data[2]
@@ -150,23 +147,21 @@ set_global_assignment -name IGNORE_GLOBAL_BUFFERS ON
 set_global_assignment -name IGNORE_ROW_GLOBAL_BUFFERS ON
 set_global_assignment -name MAX7000_IGNORE_SOFT_BUFFERS ON
 set_global_assignment -name MAX7000_PARALLEL_EXPANDER_CHAIN_LENGTH 8
-set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_EQ_220316/MSX_EQ.dpf"
 set_location_assignment PIN_76 -to ioreq
 set_location_assignment PIN_2 -to test_low
 set_location_assignment PIN_70 -to wr
 set_global_assignment -name FIT_ONLY_ONE_ATTEMPT ON
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
 set_global_assignment -name OPTIMIZE_IOC_REGISTER_PLACEMENT_FOR_TIMING OFF
-set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_ZX_221226/MSX_EQ.dpf"
 set_location_assignment PIN_93 -to a15
 set_location_assignment PIN_90 -to a14
 set_location_assignment PIN_96 -to a1
 set_location_assignment PIN_65 -to m1
-set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_ZX_230111/MSX_EQ.dpf"
-set_global_assignment -name MISC_FILE "D:/PLD/_EMP7128_EQ/_EMP_ZX_230225/MSX_EQ.dpf"
 set_location_assignment PIN_17 -to led_minus[0][9]
 set_location_assignment PIN_40 -to led_minus[1][8]
 set_location_assignment PIN_37 -to led_minus[1][9]
 set_location_assignment PIN_58 -to led_minus[2][8]
 set_location_assignment PIN_57 -to led_minus[2][9]
 set_location_assignment PIN_19 -to led_minus[0][8]
+
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY build

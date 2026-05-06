@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------- #
 #
-# Copyright (C) 1991-2009 Altera Corporation
+# Copyright (C) 1991-2013 Altera Corporation
 # Your use of Altera Corporation's design tools, logic functions 
 # and other software and tools, and its AMPP partner logic 
 # functions, and any output files from any of the foregoing 
@@ -16,15 +16,16 @@
 #
 # -------------------------------------------------------------------------- #
 #
-# Quartus II
-# Version 9.1 Build 222 10/21/2009 SJ Full Version
-# Date created = 16:45:12  July 15, 2023
+# Quartus II 32-bit
+# Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# Date created = 01:09:32  May 07, 2026
 #
 # -------------------------------------------------------------------------- #
 
-QUARTUS_VERSION = "9.1"
-DATE = "16:45:12  July 15, 2023"
+QUARTUS_VERSION = "13.0"
+DATE = "01:09:32  May 07, 2026"
 
 # Revisions
 
-PROJECT_REVISION = "MSX_EQ"
+PROJECT_REVISION = "msx_eq_10bit_pos"
+PROJECT_REVISION = "msx_eq_10bit_neg"
