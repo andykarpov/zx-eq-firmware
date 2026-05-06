@@ -87,7 +87,7 @@ set_global_assignment -name EDA_INPUT_DATA_FORMAT EDIF -section_id eda_design_sy
 set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
 set_global_assignment -name DEVICE_FILTER_PACKAGE TQFP
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 100
-set_global_assignment -name AHDL_FILE rtl/msx_eq_pos.tdf
+set_global_assignment -name AHDL_FILE rtl/orig/10bit/msx_eq_pos.tdf
 set_global_assignment -name MAX7000_OPTIMIZATION_TECHNIQUE AREA
 set_global_assignment -name ALLOW_POWER_UP_DONT_CARE OFF
 set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS OFF
